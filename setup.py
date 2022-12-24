@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='fileconsole',
+    name='lazydir',
     version='0.1.0',
     py_modules=find_packages(),
     install_requires=[
@@ -9,7 +9,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'fileconsole = fileconsole.cli:cli',
+            'lazydir = lazydir.cli:cli',
         ],
     },
 )
