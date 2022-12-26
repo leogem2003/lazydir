@@ -1,4 +1,4 @@
-# lazydir v 1.0.0
+# lazydir v1.0.0
 
 ## What is lazydir?
 

@@ -3,7 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name='lazydir',
     version='1.0.0',
-    py_modules=find_packages(),
+    py_modules=find_packages('lazydir'),
+    packages=['lazydir'],
     install_requires=[
         'Click',
     ],
