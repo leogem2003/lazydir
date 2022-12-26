@@ -23,6 +23,7 @@ result pipeline:
 
 @click.group(chain=True)
 @click.option('-v', '--verbose', count=True)
+@click.version_option()
 @click.pass_context
 def cli(ctx, verbose):
     """
@@ -178,11 +179,13 @@ def cli_infold(ctx):
     """
     Creates new folders for selected files.
     For performing infolding, the <extract> command is needed to be performed
-    before. It is based on two commands: folder-template which creates a new folder
-    basing on a template string, and <apply> which appplies these modifications.
+    before. It is based on three commands: folder-name which infold every file in a folder of given name
+    folder-template which creates a new folder based on a template string,
+    and <apply> which appplies these modifications.
 
     \b
     ACCEPTED COMMANDS
+        folder-name
         folder-template
         apply
     """
@@ -672,7 +675,7 @@ def cli_infold_name(ctx, name):
     return lambda: group.infold_name(ctx.obj['renamed'], name)
 
 @cli.command('folder-template')
-@click.argument('template', help="the template to use for creating folder's name")
+@click.argument('template')
 @click.option('--joinchar', default=' ', show_default=True, help="the character used to join group fields")
 @click.pass_context
 def cli_infold_template(ctx, template, joinchar):
