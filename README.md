@@ -37,3 +37,6 @@ The `infold` command can change file's path but only creating subfolders of the 
 For instance, `lazydir select infold folder-name 'A', folder-name 'B' extract first-letter -v "fl" infold folder-template "letter {fl}"` will put all selected files in the directories ./A/B/ and then create a folder named with their first letter (all files sharing the same first letter will be put in the same folder). The final structure will be then ./A/B/letter {fl}/.
 To make changes effective, infold has also the *apply* subcommand which applies all the changes _removing_ previous files.
 It is suggested to keep a backup of the original files in the case of bugs that may lead to the loss of your data.
+
+## installation
+To install, from this directory, run `pip install ../lazydir`, then *lazydir* will be aviable through the command *lazydir*.
