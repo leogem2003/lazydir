@@ -253,7 +253,6 @@ def infold_template(files: list[str], attributes: Attributes, groups: dict[str, 
         list[str]: a list of infolded and renamed files
     """
     new_folders = []
-    print(files)
     for ((file, var), renamed) in zip(attributes, files):
         group_name = ''
         # generates folder name for each file using file's group

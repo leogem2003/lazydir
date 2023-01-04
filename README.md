@@ -39,4 +39,4 @@ To make changes effective, infold has also the *apply* subcommand which applies 
 It is suggested to keep a backup of the original files in the case of bugs that may lead to the loss of your data.
 
 ## installation
-To install, from this directory, run `pip install ../lazydir`, then *lazydir* will be aviable through the command *lazydir*.
+To install, from this directory, run `pip install ../lazydir`. Then lazydir will be aviable through the command *lazydir*.

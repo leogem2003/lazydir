@@ -167,7 +167,7 @@ def rewrite(original: list[str], renamed: list[str]) -> None:
         r_dir = os.path.dirname(r)
         if o != r:
             if not os.path.exists(r_dir):
-                os.mkdir(r_dir)
+                os.makedirs(r_dir)
 
             os.rename(o, r)
             print('renamed', o, '->', r)
