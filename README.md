@@ -1,4 +1,4 @@
-# lazydir v1.0.0
+# lazydir v1.1.0
 
 ## What is lazydir?
 
@@ -40,3 +40,7 @@ It is suggested to keep a backup of the original files in the case of bugs that 
 
 ## installation
 To install, from this directory, run `pip install ../lazydir`. Then lazydir will be aviable through the command *lazydir*.
+
+## Changelog
+### v1.1.0
+- Added grouping feature in exctraction regexp operations
