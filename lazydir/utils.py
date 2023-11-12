@@ -193,7 +193,7 @@ def cut(msg, verbosity: int, limits: list[int] = [200, -1]) -> str:
         msg (Any): The message to display. It must support __str__
         verbosity (int): The level of verbosity
         limits (list[int], optional): The list of indexes corresponding to each verbosity
-        In facts, verbosity is used as index to access to the corresponding element in limits. Defaults to [500, -1].
+        In facts, verbosity is used as index to access to the corresponding element in limits. Defaults to [200, -1].
 
     Returns:
         str: Cut string

@@ -27,7 +27,8 @@ result pipeline:
 @click.pass_context
 def cli(ctx, verbose):
     """
-    lazydir's CLI, a tool for operating on files. See the help message of
+    lazydir 1.1.0 \b
+    1 tool for operating on files. See the help message of
     <select>, <extract>, <sort>, <group>, <rename> ans <infold> commands for
     more informations.
     """
@@ -43,7 +44,7 @@ def cli(ctx, verbose):
 ##### operation commands ####
 
 @cli.command('select')
-@click.option('--dir', default="./", show_default=True, help="specify the directory used for the extraction")
+@click.option('--dir', '-d', default="./", show_default=True, help="specify the directory used for the extraction")
 @click.pass_context
 def cli_select(ctx, dir):
     """
@@ -286,7 +287,7 @@ def cli_process_pipeline(ctx, filters, verbose):
                 message = "operation: "+f
             else:
                 ctx.obj['logic-mode'] = f
-                message = f"logic mode: "+f
+                message = "logic mode: "+f
             
             if verbosity>1:
                 print('\n'+message)
@@ -294,7 +295,7 @@ def cli_process_pipeline(ctx, filters, verbose):
             ctx.obj['operation'](ctx, f)
     
     if(verbosity):
-        print("SELECTED:", utils.cut(ctx.obj['files'], verbosity), "\nFILE VARS:", utils.cut(ctx.obj['fields'], verbosity), "\nVAR NAMES:", utils.cut(ctx.obj['vars'], verbosity),
+        print("\nSELECTED:", utils.cut(ctx.obj['files'], verbosity), "\nFILE VARS:", utils.cut(ctx.obj['fields'], verbosity), "\nVAR NAMES:", utils.cut(ctx.obj['vars'], verbosity),
             "\nGROUPS", utils.cut(ctx.obj['groups'], verbosity), "\nRENAMED FILES:", utils.cut(ctx.obj['renamed'], verbosity), sep='\n')
 
 
@@ -536,19 +537,23 @@ def cli_extract_words(ctx, var, start, span):
 
 @cli.command('matching')
 @click.argument('expr')
+@click.option('--gindx','-g', default=False, type=int, help="group index")
 @click.option('--var', '-v', default='')
 @click.pass_context
-def cli_extract_match(ctx, expr, var):
+def cli_extract_match(ctx, expr, gindx, var):
     """Extract matched sequence using "re.match". File's extension is included"""
-    return (var, lambda: group.extract_match(ctx.obj['files'], expr))
+    extr = group.extract_match(ctx.obj['files'], expr, bool(gindx is not False), gindx)
+    return (var, lambda: extr)
 
 @cli.command('searching')
 @click.argument('expr')
+@click.option('--gindx', '-g', default=False, type=int, help="group index")
 @click.option('--var', '-v', default='')
 @click.pass_context
-def cli_extract_search(ctx, expr, var):
+def cli_extract_search(ctx, expr, gindx, var):
     """Extract matched sequence using "re.search". File's extension is included"""
-    return (var, lambda: group.extract_search(ctx.obj['files'], expr))
+    extr = group.extract_search(ctx.obj['files'], expr, bool(gindx is not False), gindx)
+    return (var, lambda: extr)
 
 @cli.command('position')
 @click.option('--reverse', is_flag=True, default=False, show_default=True, help="reverse file's ordering")

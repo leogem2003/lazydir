@@ -116,13 +116,14 @@ def extract_nth_words(files: Iterable[str], start: int = 0, span: int = 1) -> It
     return (' '.join(file.split(' ')[start:start+span]) for file in basenames)
 
 
-def extract_match(files: Iterable[str], expr: str) -> Iterator:
+def extract_match(files: Iterable[str], expr: str, groups: bool = False, idx: int = 0) -> Iterator:
     """Returns the matched string obtained applying <expr> onf filenames.
     if no match is found an empty string is stored as result
 
     Args:
         files (Iterable[str]): the list of files
         expr (str): the expression used for matching
+        groups (bool): if true returns a tuple containing grouped matches
 
     Yields:
         Iterator: the result of the match
@@ -131,11 +132,14 @@ def extract_match(files: Iterable[str], expr: str) -> Iterator:
     bnames = get_basenames(files)
     for file in bnames:
         m = re.match(regexpr, file)
-        m = m.group() if m else ''
-        yield m
+        if groups and m:
+            y = m.groups()[idx]
+        else:
+            y = m.group() if m else ''
+        yield y
 
 
-def extract_search(files: Iterable[str], expr: str) -> Iterator:
+def extract_search(files: Iterable[str], expr: str, group: bool = False, indx: int = 0) -> Iterator:
     """Returns the searched string obtained applying <expr> on filenames.
     if no match is found an empty string is stored as result
 
@@ -150,8 +154,11 @@ def extract_search(files: Iterable[str], expr: str) -> Iterator:
     bnames = get_basenames(files)
     for file in bnames:
         m = re.search(regexpr, file)
-        m = m.group() if m else ''
-        yield m
+        if group and m:
+            y = m.groups()[indx]
+        else:
+            y = m.group() if m else ''
+        yield y
 
 
 def extract_position(files: Union[list[str], tuple[str]], start: int = 1, step: int = 1, reverse: bool = False) -> list[str]:
