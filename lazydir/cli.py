@@ -2,7 +2,7 @@ from typing import Callable
 
 from . import reader, sorter, group, writer, utils
 import click
-
+__version__ = '1.1.0'
 """
 How lazydir's cli works:
 the CLI is based on a series of commands which are separated into main actions,
@@ -20,18 +20,20 @@ result pipeline:
 ...
 """
 
-
 @click.group(chain=True)
 @click.option('-v', '--verbose', count=True)
-@click.version_option()
+@click.version_option(__version__, message="lazydir v%(version)s")
 @click.pass_context
 def cli(ctx, verbose):
     """
     lazydir 1.1.0 \b
-    1 tool for operating on files. See the help message of
+    A tool for operating on files. See the help message of
     <select>, <extract>, <sort>, <group>, <rename> ans <infold> commands for
     more informations.
     """
+    if version:
+        print("lazydir v1.1.0")
+
     if not ctx.obj:
         ctx.obj = {}
     ctx.obj['fields'] = []

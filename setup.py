@@ -6,7 +6,7 @@ setup(
     py_modules=find_packages('lazydir'),
     packages=['lazydir'],
     install_requires=[
-        'Click',
+        'click',
     ],
     entry_points={
         'console_scripts': [
