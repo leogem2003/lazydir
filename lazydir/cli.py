@@ -31,9 +31,6 @@ def cli(ctx, verbose):
     <select>, <extract>, <sort>, <group>, <rename> ans <infold> commands for
     more informations.
     """
-    if version:
-        print("lazydir v1.1.0")
-
     if not ctx.obj:
         ctx.obj = {}
     ctx.obj['fields'] = []
