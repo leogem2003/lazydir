@@ -618,10 +618,13 @@ def cli_using(ctx, all, var, slice, index):
 @cli.command('replace')
 @click.argument('char_to_repl')
 @click.option('--replacement','-r', default="", show_default=True, help="the character used for replacement")
-@click.option('--count', default=-1, show_default=True, help="the maximum number of replacements to perform (0 to replace all)")
+@click.option('--count', '-c', default=-1, show_default=True, help="the maximum number of replacements to perform (0 to replace all)")
+@click.option('--space', '-s', is_flag=True, default=False, show_default=True, help="selects space character as filling char")
 @click.pass_context
-def cli_replace(ctx, char_to_repl, replacement, count):
+def cli_replace(ctx, char_to_repl, replacement, count, space):
     """Replace a certain string from filename (extension excluded) with <replacement> for a maximum of <count> times"""
+    if space:
+        replacement = ' '
     return lambda: writer.replace(ctx.obj['renamed'], char_to_repl, replacement, count)
 
 @cli.command('sub')
