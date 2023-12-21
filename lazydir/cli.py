@@ -441,11 +441,11 @@ def cli_find(ctx, expr):
 ### sorting commands ###
 
 @cli.command('by')
-@click.option('--all', is_flag=True, default=False, show_default=True, help="use all the aviable variables")
+@click.option('--all', '-a', is_flag=True, default=False, show_default=True, help="use all the aviable variables")
 @click.option('--slice', nargs=2, multiple=True, type=int, help="use all variables from <a> to <b> indexes excluded")
 @click.option('--index', '-i', multiple=True, type=int, help="use a variable at a specific index")
 @click.option('--var', '-v', multiple=True, help="use a variable with <var> name")
-@click.option('--reverse', is_flag=True, default=False, help="reverse the sorting")
+@click.option('--reverse', '-r', is_flag=True, default=False, help="reverse the sorting")
 @click.pass_context
 def cli_by(ctx, all, var, slice, index, reverse):
     """
@@ -537,25 +537,28 @@ def cli_extract_words(ctx, var, start, span):
 @cli.command('matching')
 @click.argument('expr')
 @click.option('--gindx','-g', default=False, type=int, help="group index")
+@click.option('--use_groups', '-u', default=False, is_flag=True, show_default=True, help="Flag to allow group indexes")
 @click.option('--var', '-v', default='')
 @click.pass_context
-def cli_extract_match(ctx, expr, gindx, var):
+def cli_extract_match(ctx, expr, gindx, use_groups, var):
     """Extract matched sequence using "re.match". File's extension is included"""
-    extr = group.extract_match(ctx.obj['files'], expr, bool(gindx is not False), gindx)
+    extr = group.extract_match(ctx.obj['files'], expr, use_groups, gindx)
     return (var, lambda: extr)
 
 @cli.command('searching')
 @click.argument('expr')
 @click.option('--gindx', '-g', default=False, type=int, help="group index")
+@click.option('--use_groups', '-u', default=False, is_flag=True, show_default=True, help="Flag to allow group indexes")
 @click.option('--var', '-v', default='')
 @click.pass_context
-def cli_extract_search(ctx, expr, gindx, var):
+def cli_extract_search(ctx, expr, gindx, use_groups, var):
     """Extract matched sequence using "re.search". File's extension is included"""
-    extr = group.extract_search(ctx.obj['files'], expr, bool(gindx is not False), gindx)
+    print(bool(gindx is not False))
+    extr = group.extract_search(ctx.obj['files'], expr, use_groups, gindx)
     return (var, lambda: extr)
 
 @cli.command('position')
-@click.option('--reverse', is_flag=True, default=False, show_default=True, help="reverse file's ordering")
+@click.option('--reverse','-r', is_flag=True, default=False, show_default=True, help="reverse file's ordering")
 @click.option('--start', default=1, show_default=True, type=int, help="starting index")
 @click.option('--step', default=1, show_default=True, type=int, help="the inctremental step used in indexing")
 @click.option('--var', '-v', default='')
@@ -568,7 +571,7 @@ def cli_position(ctx, reverse, start, step, var):
 @click.option('--var', '-v', default='')
 @click.option('--start', default=1, show_default=True, help="reverse file's ordering")
 @click.option('--step', default=1, show_default=True, help="starting index")
-@click.option('--reverse', default=False, is_flag=True, help="the inctremental step used in indexing")
+@click.option('--reverse','-r', default=False, is_flag=True, help="the inctremental step used in indexing")
 @click.pass_context
 def cli_group_index(ctx, var, start, step, reverse):
     """Associate to each group a position and assign that value to each file included in that group"""
@@ -585,7 +588,7 @@ def cli_subindex(ctx, var, start, step):
 
 ### groups ###
 @cli.command('using')
-@click.option('--all', is_flag=True, default=False, show_default=True, help="use all aviable attributes for grouping")
+@click.option('--all', '-a', is_flag=True, default=False, show_default=True, help="use all aviable attributes for grouping")
 @click.option('--slice', nargs=2, multiple=True, type=int, help="specify a range index of attributes")
 @click.option('--index', multiple=True, type=int, help="specify the index of a specific attribute")
 @click.option('--var', '-v', multiple=True, help="specify variable's name")
@@ -632,7 +635,7 @@ def cli_sub(ctx, expr, replacement, count):
 
 @cli.command('capitalise')
 @click.option('--char', default=' ', show_default=True, help="the character after which there will be a capitalisation")
-@click.option('--not-capitalise-start', is_flag=True, default=True, help="not capitalise the first letter of the filename")
+@click.option('--not-capitalise-start', '-n', is_flag=True, default=True, help="not capitalise the first letter of the filename")
 @click.option('--count', default=-1, show_default=True, help="maximum nnumber of capitalisation (-1 to capitalise all)")
 @click.pass_context
 def cli_capitalise(ctx, char, not_capitalise_start, count):

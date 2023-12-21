@@ -123,6 +123,8 @@ def extract_match(files: Iterable[str], expr: str, groups: bool = False, idx: in
     Args:
         files (Iterable[str]): the list of files
         expr (str): the expression used for matching
+        group (bool): whether use groups. Defaults to False
+        indx (int): group index eventually passed
         groups (bool): if true returns a tuple containing grouped matches
 
     Yields:
@@ -141,11 +143,14 @@ def extract_match(files: Iterable[str], expr: str, groups: bool = False, idx: in
 
 def extract_search(files: Iterable[str], expr: str, group: bool = False, indx: int = 0) -> Iterator:
     """Returns the searched string obtained applying <expr> on filenames.
-    if no match is found an empty string is stored as result
+    if no match is found an empty string is stored as result.
+    if <group> is true uses <indx> as group index for the extracted sequence.
 
     Args:
         files (Iterable[str]): the list of files
         expr (str): the expression used for matching
+        group (bool): whether use groups. Defaults to False
+        indx (int): group index eventually passed
 
     Yields:
         Iterator: the result of the match
