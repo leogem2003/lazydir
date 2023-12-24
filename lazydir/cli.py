@@ -83,6 +83,7 @@ def cli_select(ctx, dir):
     ctx.ensure_object(dict)
 
     ctx.obj['files'] = list(reader.select_glob(dir,'*'))
+    ctx.obj['pool'] = set(ctx.obj['files'])
     ctx.obj['groups'] = []
     ctx.obj['logic-mode'] = 'and'
     ctx.obj['dir'] = dir
@@ -195,20 +196,19 @@ def cli_infold(ctx):
 def selection(ctx, function: Callable) -> None:
     mode = ctx.obj['logic-mode']
     ## now selected-files is a dict
-    pool = set(ctx.obj['files'])
+    pool = ctx.obj['pool']
     
     if mode == "and":
-        ctx.obj['files'] = pool & set(function())
+        ctx.obj['pool'] = pool & set(function())
     elif mode == "or":
-        ctx.obj['files'] = pool | set(function())
+        ctx.obj['pool'] = pool | set(function())
     elif mode == 'xor':
-        ctx.obj['files'] = pool ^ set(function())
+        ctx.obj['pool'] = pool ^ set(function())
     else: # mode == 'not'
-        ctx.obj['files'] = pool - set(function())
-    ctx.obj['files'] = list(ctx.obj['files'])
+        ctx.obj['pool'] = pool - set(function())
 
     if ctx.obj['verbosity']>1:
-        print("\nSELECTION:\n", ctx.obj['files'])
+        print("\nSELECTION:\n", ctx.obj['pool'])
 
 
 def sorting(ctx, function: Callable) -> None:
@@ -282,6 +282,8 @@ def cli_process_pipeline(ctx, filters, verbose):
         if isinstance(f, str):
             #a logic connector or an operation has been passed as argument
             if f in OPERATIONS.keys():
+                if f != 'select': # after selection, gets the list of selected files
+                    ctx.obj['files'] = list(ctx.obj['pool'])
                 ctx.obj['operation'] = OPERATIONS[f]
                 message = "operation: "+f
             else:
@@ -295,7 +297,7 @@ def cli_process_pipeline(ctx, filters, verbose):
     
     if(verbosity):
         print("\nSELECTED:", utils.cut(ctx.obj['files'], verbosity), "\nFILE VARS:", utils.cut(ctx.obj['fields'], verbosity), "\nVAR NAMES:", utils.cut(ctx.obj['vars'], verbosity),
-            "\nGROUPS", utils.cut(ctx.obj['groups'], verbosity), "\nRENAMED FILES:", utils.cut(ctx.obj['renamed'], verbosity), sep='\n')
+              "\nGROUPS:", utils.cut(ctx.obj['groups'], verbosity), "\nRENAMED FILES:", utils.cut(ctx.obj['renamed'], verbosity), sep='\n')
 
 
 
