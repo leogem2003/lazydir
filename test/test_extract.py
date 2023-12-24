@@ -3,9 +3,10 @@ import glob
 import os
 
 try:
-    from fileconsole import group
+    from lazydir import group
 except ImportError:
     sys.path.append("./")
+    from lazydir import group
 
 DIR = "./test/test_files/extract/"
 FILES = [os.path.basename(file) for file in glob.glob(DIR+'*')] #["f1.txt", "f2.txt", "f1.docx", "Multiple words.txt"]

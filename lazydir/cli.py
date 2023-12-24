@@ -2,7 +2,7 @@ from typing import Callable
 
 from . import reader, sorter, group, writer, utils
 import click
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 """
 How lazydir's cli works:
 the CLI is based on a series of commands which are separated into main actions,
@@ -26,7 +26,7 @@ result pipeline:
 @click.pass_context
 def cli(ctx, verbose):
     """
-    lazydir 1.1.0 \b
+    lazydir 1.1.1 \b
     A tool for operating on files. See the help message of
     <select>, <extract>, <sort>, <group>, <rename> and <infold> commands for
     more informations.

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='lazydir',
-    version='1.1.0',
+    version='1.1.1',
     py_modules=find_packages('lazydir'),
     packages=['lazydir'],
     install_requires=[

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "click>=8.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lazydir"
+version = "1.1.0"
+authors = [
+  { name="Leonardo Gementi"},
+]
+description = "A python package for file manipulation utilities"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/leogem2003/lazydir"
+"Bug Tracker" = "https://github.com/leogem2003/lazydir/issues"
+
