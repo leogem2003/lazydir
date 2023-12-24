@@ -28,7 +28,7 @@ def cli(ctx, verbose):
     """
     lazydir 1.1.0 \b
     A tool for operating on files. See the help message of
-    <select>, <extract>, <sort>, <group>, <rename> ans <infold> commands for
+    <select>, <extract>, <sort>, <group>, <rename> and <infold> commands for
     more informations.
     """
     if not ctx.obj:
