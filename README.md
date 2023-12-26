@@ -43,4 +43,4 @@ To install, from this directory, run `pip install ../lazydir`. Then lazydir will
 
 ## Changelog
 ### v1.1.0
-- Added grouping feature in exctraction regexp operations
+- Added grouping feature in extraction regexp operations
