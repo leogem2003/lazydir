@@ -544,8 +544,8 @@ def cli_extract_words(ctx, var, start, span):
 @click.pass_context
 def cli_extract_match(ctx, expr, gindx, use_groups, var):
     """Extract matched sequence using "re.match". File's extension is included"""
-    extr = group.extract_match(ctx.obj['files'], expr, use_groups, gindx)
-    return (var, lambda: extr)
+    return (var, lambda: group.extract_match(ctx.obj['files'], expr, use_groups, gindx)
+)
 
 @cli.command('searching')
 @click.argument('expr')
@@ -555,9 +555,8 @@ def cli_extract_match(ctx, expr, gindx, use_groups, var):
 @click.pass_context
 def cli_extract_search(ctx, expr, gindx, use_groups, var):
     """Extract matched sequence using "re.search". File's extension is included"""
-    print(bool(gindx is not False))
-    extr = group.extract_search(ctx.obj['files'], expr, use_groups, gindx)
-    return (var, lambda: extr)
+    return (var, lambda: group.extract_search(ctx.obj['files'], expr, use_groups, gindx)
+)
 
 @cli.command('position')
 @click.option('--reverse','-r', is_flag=True, default=False, show_default=True, help="reverse file's ordering")
