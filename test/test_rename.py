@@ -3,9 +3,10 @@ import glob
 import os
 
 try:
-    from fileconsole import writer, group
+    from lazydir import writer
 except ImportError:
     sys.path.append("./")
+    from lazydir import writer
 
 DIR = "./test/test_files/rename/"
 FILES = [os.path.basename(file) for file in glob.glob(DIR+'*')] #["Abc.txt", "File 01.txt", "Multiple Words.txt"]

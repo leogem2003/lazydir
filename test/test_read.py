@@ -3,9 +3,10 @@ import glob
 import os
 
 try:
-    from fileconsole import reader
+    from lazydir import reader
 except ImportError:
     sys.path.append("./")
+    from lazydir import reader
 
 DIR = "./test/test_files/read/"
 FILES = [os.path.basename(file) for file in glob.glob(DIR+'*')] #["test1.txt", "test2.txt", "f1.docx", "f1.doc"]

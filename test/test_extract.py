@@ -9,7 +9,7 @@ except ImportError:
     from lazydir import group
 
 DIR = "./test/test_files/extract/"
-FILES = [os.path.basename(file) for file in glob.glob(DIR+'*')] #["f1.txt", "f2.txt", "f1.docx", "Multiple words.txt"]
+FILES = sorted((os.path.basename(file) for file in glob.glob(DIR+'*'))) #["f1.txt", "f2.txt", "f1.docx", "Multiple words.txt"]
 
 def test_name():
     expected_res = ('f1', 'f2', 'f1', 'Multiple words')
@@ -40,13 +40,15 @@ def test_position():
     assert group.extract_position(sorted(FILES)) == expected_res
 
 def test_group_index():
-    expected_res = ['1', '1', '1', '2']
+    expected_res = ['2', '1', '1', '1']
+    print(FILES)
     file_attrs = [ (f, [attr,]) for f, attr in zip(FILES, group.extract_nth_letters(FILES)) ]
     g = group.collapse_groups(file_attrs)
     assert group.extract_group_index(FILES, g, reverse=True) == expected_res
 
 def test_sub_index():
-    expected_res = ['1', '2', '3', '1']
+    expected_res = ['1','1', '2', '3']
+    print(FILES)
     file_attrs = [ (f, [attr,]) for f, attr in zip(FILES, group.extract_nth_letters(FILES)) ]
     g = group.collapse_groups(file_attrs)
     assert group.extract_sub_index(FILES, g, start=1) == expected_res
